@@ -1,5 +1,5 @@
 # Ex05 Image Carousel
-## Date:
+## Date:18/3/26
 
 ## AIM
 To create a Image Carousel using React 
@@ -39,9 +39,108 @@ Use setInterval to call the nextImage() function at regular intervals.
 Clean up the interval when the component unmounts using clearInterval to prevent memory leaks.
 
 ## PROGRAM
+```
+App.js
+import React, { useState, useEffect } from "react";
+import "./App.css";
+
+// Working image links ✅
+const images = [
+  "https://picsum.photos/600/300?random=1",
+  "https://picsum.photos/600/300?random=2",
+  "https://picsum.photos/600/300?random=3"
+];
+
+function App() {
+  const [index, setIndex] = useState(0);
+
+  // Next slide
+  const nextSlide = () => {
+    setIndex((index + 1) % images.length);
+  };
+
+  // Previous slide
+  const prevSlide = () => {
+    setIndex((index - 1 + images.length) % images.length);
+  };
+
+  // Auto slide every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 3000);
+    return () => clearInterval(interval);
+  });
+
+  return (
+    <div className="container">
+      <h1>React Carousel</h1>
+
+      <div className="carousel">
+        <button onClick={prevSlide}>❮</button>
+
+        <img src={images[index]} alt="slide" />
+
+        <button onClick={nextSlide}>❯</button>
+      </div>
+    </div>
+  );
+}
+
+export default App;
+```
+```
+App.css
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+}
+
+.container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+h1 {
+  color: #333;
+}
+
+/* Carousel layout */
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Image styling */
+img {
+  width: 600px;
+  height: 300px;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Buttons */
+button {
+  font-size: 24px;
+  padding: 10px 15px;
+  border: none;
+  background: #333;
+  color: white;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #555;
+}
+```
 
 
 ## OUTPUT
+<img width="1712" height="862" alt="image" src="https://github.com/user-attachments/assets/9c653a54-3b77-4f6c-a563-1268138a2c01" />
 
 
 ## RESULT
